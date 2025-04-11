@@ -110,6 +110,61 @@ export const SortingContainer = () => {
     });
   }, []);
 
+  const handleQueryNew = useCallback(() => {
+    setCards((prevCards) => {
+      const newCards = [...prevCards];
+      const initialUnpinnedCards = newCards.filter(card => !card.isPinned);
+      if (initialUnpinnedCards.length === 0) return newCards; // If all cards are pinned, do nothing
+      
+      // Randomly select how many cards to replace (at least 1)
+      const numToReplace = Math.max(1, Math.floor(Math.random() * initialUnpinnedCards.length));
+      
+      // Get the indices of unpinned cards
+      const unpinnedIndices = newCards
+        .map((card, index) => (!card.isPinned ? index : -1))
+        .filter(index => index !== -1);
+      
+      // Shuffle and take the first numToReplace indices
+      const indicesToReplace = unpinnedIndices
+        .sort(() => Math.random() - 0.5)
+        .slice(0, numToReplace);
+      
+      // Find the highest value among all cards
+      const maxValue = Math.max(...newCards.map(card => card.value), 0);
+      
+      // Replace the selected cards
+      indicesToReplace.forEach((index, i) => {
+        newCards[index] = {
+          id: `card-${Date.now()}-${i}`,
+          value: maxValue + i + 1,
+          color: `hsl(${Math.random() * 360}, 70%, 45%)`,
+          isPinned: false,
+          isRecommendation: true
+        };
+      });
+      
+      // Create a new array with pinned cards in their original positions
+      const finalCards = [...newCards];
+      
+      // Get all unpinned cards and their original indices
+      const unpinnedWithIndices = finalCards
+        .map((card, index) => (!card.isPinned ? { card, index } : null))
+        .filter(item => item !== null);
+      
+      // Sort unpinned cards by value
+      const sortedUnpinned = unpinnedWithIndices
+        .map(item => item!.card)
+        .sort((a, b) => a.value - b.value);
+      
+      // Place sorted unpinned cards back in their original positions
+      unpinnedWithIndices.forEach((item, i) => {
+        finalCards[item!.index] = sortedUnpinned[i];
+      });
+      
+      return finalCards;
+    });
+  }, []);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="min-h-screen bg-gray-100 py-8">
@@ -129,6 +184,12 @@ export const SortingContainer = () => {
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
               >
                 Add a new one
+              </button>
+              <button
+                onClick={handleQueryNew}
+                className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+              >
+                Query new
               </button>
             </div>
           </div>
