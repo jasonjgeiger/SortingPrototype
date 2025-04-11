@@ -1,7 +1,6 @@
 import { useDrag, useDrop } from 'react-dnd';
 import { motion } from 'framer-motion';
 import { Card as CardType } from '@/types/sorting';
-import { RefObject } from 'react';
 
 interface CardProps {
   card: CardType;
@@ -50,7 +49,6 @@ export const Card = ({ card, index, moveCard, onPinCard, onRemoveCard, showDragH
       const hoverMiddle = hoveredRect.top + hoveredRect.height / 2;
       const hoverClientY = clientOffset.y;
 
-      // Only perform the move when the mouse has crossed half of the items height
       if (item.index < index && hoverClientY < hoverMiddle) {
         return;
       }
@@ -58,7 +56,6 @@ export const Card = ({ card, index, moveCard, onPinCard, onRemoveCard, showDragH
         return;
       }
 
-      // Time to actually perform the action
       moveCard(item.index, index);
       item.index = index;
     },
@@ -76,7 +73,7 @@ export const Card = ({ card, index, moveCard, onPinCard, onRemoveCard, showDragH
 
   return (
     <motion.div
-      ref={drop as any}
+      ref={drop as unknown as React.RefObject<HTMLDivElement>}
       className={`w-[400px] h-24 rounded-lg shadow-lg flex items-center select-none relative ${
         isDragging ? 'opacity-50' : 'opacity-100'
       } ${card.isPinned ? 'ring-2 ring-blue-500' : ''} ${
@@ -89,7 +86,7 @@ export const Card = ({ card, index, moveCard, onPinCard, onRemoveCard, showDragH
       {/* Drag Handle */}
       {showDragHandle && (
         <div
-          ref={drag as any}
+          ref={drag as unknown as React.RefObject<HTMLDivElement>}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-6 flex items-center justify-center cursor-move"
         >
           <div className="w-full h-full flex items-center justify-center hover:bg-white/10 rounded-b-lg">
