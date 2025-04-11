@@ -56,13 +56,13 @@ export const Card = ({
         }}
       >
         {/* Arrow Controls */}
-        <div className="flex gap-1">
+        <div className="flex gap-4 h-10">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onMove(index, index - 1);
             }}
-            className="p-1 rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
             title="Move up"
             disabled={index === 0}
           >
@@ -73,7 +73,7 @@ export const Card = ({
               e.stopPropagation();
               onMove(index, index + 1);
             }}
-            className="p-1 rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
             title="Move down"
             disabled={index === totalCards - 1}
           >
@@ -103,16 +103,16 @@ export const Card = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute top-0 left-0 w-full flex justify-center pointer-events-none"
+            className="absolute top-[5px] left-0 w-full flex justify-center pointer-events-none"
           >
-            <span className="bg-blue-500 text-white px-2 py-1 rounded-b-lg text-xs font-bold">
+            <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               Liked
             </span>
           </motion.div>
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-1">
+        <div className="flex gap-4 h-10">
           {card.isRecommendation && (
             <button
               onClick={(e) => {
@@ -121,7 +121,7 @@ export const Card = ({
                   onPinCard(index);
                 }
               }}
-              className={`p-1 rounded-full ${
+              className={`w-10 h-10 flex items-center justify-center rounded-full ${
                 card.isPinned 
                   ? 'bg-white/10 cursor-default opacity-30' 
                   : 'bg-white/20 hover:bg-white/30'
@@ -137,7 +137,7 @@ export const Card = ({
               e.stopPropagation();
               onRemoveCard(index);
             }}
-            className="p-1 rounded-full bg-white/20 hover:bg-white/30"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30"
             title={card.isPinned ? "Remove liked card" : "Remove recommendation"}
           >
             ❌

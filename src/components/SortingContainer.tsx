@@ -182,33 +182,33 @@ export const SortingContainer = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Card Sorter</h1>
-          <div className="space-x-4">
+          <div className="flex gap-4 h-10">
             <button
               onClick={handleReset}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors"
               title="Reset to initial state"
             >
               ↺
             </button>
             <button
               onClick={() => setShowDragHandles(!showDragHandles)}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors"
               title={showDragHandles ? "Hide drag handles" : "Show drag handles"}
             >
               {showDragHandles ? "✋" : "👆"}
             </button>
             <button
               onClick={handleReloadRecommendations}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-6 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
             >
               Add a new one
             </button>
             <button
               onClick={handleQueryNew}
-              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+              className="px-6 h-10 flex items-center justify-center bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors"
             >
               Query new
             </button>
