@@ -9,7 +9,7 @@ import { Card as CardType } from '@/types/sorting';
 const generateInitialCards = (count: number): CardType[] => {
   return Array.from({ length: count }, (_, i) => ({
     id: `card-${i}`,
-    value: Math.floor(Math.random() * 100),
+    value: i + 1,
     color: `hsl(${Math.random() * 360}, 70%, 45%)`,
     isPinned: false,
     isRecommendation: true
@@ -66,15 +66,47 @@ export const SortingContainer = () => {
     setCards((prevCards) => {
       const newCards = [...prevCards];
       newCards.splice(index, 1);
+      // Find the highest value among remaining cards
+      const maxValue = Math.max(...newCards.map(card => card.value), 0);
+      // Add a new card with value one higher than the highest
+      newCards.push({
+        id: `card-${Date.now()}`,
+        value: maxValue + 1,
+        color: `hsl(${Math.random() * 360}, 70%, 45%)`,
+        isPinned: false,
+        isRecommendation: true
+      });
       return newCards;
     });
   }, []);
 
   const handleReloadRecommendations = useCallback(() => {
     setCards((prevCards) => {
-      const pinnedCards = prevCards.filter(card => card.isPinned);
-      const newRecommendations = generateInitialCards(4 - pinnedCards.length);
-      return [...pinnedCards, ...newRecommendations];
+      const newCards = [...prevCards];
+      // Find the highest unpinned card
+      const unpinnedCards = newCards.filter(card => !card.isPinned);
+      if (unpinnedCards.length === 0) return newCards; // If all cards are pinned, do nothing
+      
+      const highestUnpinnedCard = unpinnedCards.reduce((highest, current) => 
+        current.value > highest.value ? current : highest
+      );
+      
+      // Find the index of the highest unpinned card
+      const indexToReplace = newCards.findIndex(card => 
+        card.id === highestUnpinnedCard.id
+      );
+      
+      // Replace it with a new card
+      const maxValue = Math.max(...newCards.map(card => card.value), 0);
+      newCards[indexToReplace] = {
+        id: `card-${Date.now()}`,
+        value: maxValue + 1,
+        color: `hsl(${Math.random() * 360}, 70%, 45%)`,
+        isPinned: true,
+        isRecommendation: true
+      };
+      
+      return newCards;
     });
   }, []);
 
@@ -96,7 +128,7 @@ export const SortingContainer = () => {
                 onClick={handleReloadRecommendations}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
               >
-                Get more
+                Add a new one
               </button>
             </div>
           </div>
