@@ -41,7 +41,7 @@ const generateInitialCards = (count: number): CardType[] => {
 
 export const SortingContainer = () => {
   const [cards, setCards] = useState<CardType[]>(generateInitialCards(4));
-  const [showDragHandles, setShowDragHandles] = useState(false);
+  const [showDragHandles, setShowDragHandles] = useState(true);
   const [draggedCardId, setDraggedCardId] = useState<string | null>(null);
 
   const handleReset = useCallback(() => {
@@ -63,7 +63,7 @@ export const SortingContainer = () => {
   }, [cards.length]);
 
   const handleReorder = useCallback((newCards: CardType[]) => {
-    setCards(prevCards => {
+    setCards(() => {
       return newCards.map(card => {
         // Only pin the card that was actually dragged
         if (card.id === draggedCardId && !card.isPinned) {
@@ -198,7 +198,7 @@ export const SortingContainer = () => {
               className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors hover:cursor-pointer"
               title={showDragHandles ? "Hide drag handles" : "Show drag handles"}
             >
-              {showDragHandles ? "✋" : "↕️"}
+              {showDragHandles ? "✋" : "👆"}
             </button>
             <button
               onClick={handleReloadRecommendations}
