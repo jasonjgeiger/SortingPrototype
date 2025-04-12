@@ -85,8 +85,16 @@ export const SortingContainer = () => {
   const handleRemoveCard = useCallback((index: number) => {
     setCards(prevCards => {
       const newCards = [...prevCards];
+      const removedCard = newCards[index];
       newCards.splice(index, 1);
-      const maxValue = Math.max(...newCards.map(card => card.value), 0);
+      
+      // Find the highest value among ALL cards, including the one we just removed
+      const maxValue = Math.max(
+        ...newCards.map(card => card.value),
+        removedCard.value
+      );
+      
+      // Add a new card with value one higher than the highest
       newCards.push({
         id: `card-${Date.now()}`,
         value: maxValue + 1,
