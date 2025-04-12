@@ -188,27 +188,27 @@ export const SortingContainer = () => {
           <div className="flex gap-4 h-10">
             <button
               onClick={handleReset}
-              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors"
-              title="Reset to initial state"
+              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors hover:cursor-pointer"
+              title="Reset all cards to initial state"
             >
               ↺
             </button>
             <button
               onClick={() => setShowDragHandles(!showDragHandles)}
-              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors"
+              className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors hover:cursor-pointer"
               title={showDragHandles ? "Hide drag handles" : "Show drag handles"}
             >
-              {showDragHandles ? "✋" : "👆"}
+              {showDragHandles ? "✋" : "↕️"}
             </button>
             <button
               onClick={handleReloadRecommendations}
-              className="px-6 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+              className="px-6 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors hover:cursor-pointer"
             >
               Add a new one
             </button>
             <button
               onClick={handleQueryNew}
-              className="px-6 h-10 flex items-center justify-center bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors"
+              className="px-6 h-10 flex items-center justify-center bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors hover:cursor-pointer"
             >
               Query new
             </button>

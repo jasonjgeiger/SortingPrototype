@@ -62,8 +62,8 @@ export const Card = ({
               e.stopPropagation();
               onMove(index, index - 1);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
-            title="Move up"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30 hover:cursor-pointer disabled:cursor-not-allowed"
+            title="Move card up"
             disabled={index === 0}
           >
             ↑
@@ -73,27 +73,30 @@ export const Card = ({
               e.stopPropagation();
               onMove(index, index + 1);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30"
-            title="Move down"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30 hover:cursor-pointer disabled:cursor-not-allowed"
+            title="Move card down"
             disabled={index === totalCards - 1}
           >
             ↓
           </button>
         </div>
 
-        {/* Card Content with Drag Handle */}
+        {/* Card Content */}
         <div className="flex-1 flex items-center justify-center">
           <div className="flex items-center gap-4">
             <span className="text-white text-2xl font-bold select-none">{card.value}</span>
-            <div 
-              className="w-12 h-12 flex items-center justify-center cursor-grab active:cursor-grabbing bg-white/10 rounded-lg hover:bg-white/20"
-              onPointerDown={(e) => {
-                e.stopPropagation();
-                dragControls.start(e);
-              }}
-            >
-              <span className="select-none">⋮⋮</span>
-            </div>
+            {showDragHandle && (
+              <div 
+                className="w-10 h-10 flex items-center justify-center cursor-grab active:cursor-grabbing bg-white/10 rounded-lg hover:bg-white/20"
+                onPointerDown={(e) => {
+                  e.stopPropagation();
+                  dragControls.start(e);
+                }}
+                title="Drag to reorder"
+              >
+                <span className="select-none">⋮⋮</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -123,8 +126,8 @@ export const Card = ({
               }}
               className={`w-10 h-10 flex items-center justify-center rounded-full ${
                 card.isPinned 
-                  ? 'bg-white/10 cursor-default opacity-30' 
-                  : 'bg-white/20 hover:bg-white/30'
+                  ? 'bg-white/10 cursor-not-allowed opacity-30' 
+                  : 'bg-white/20 hover:bg-white/30 hover:cursor-pointer'
               }`}
               title={card.isPinned ? "Already liked" : "Like this card"}
               disabled={card.isPinned}
@@ -137,8 +140,8 @@ export const Card = ({
               e.stopPropagation();
               onRemoveCard(index);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30"
-            title={card.isPinned ? "Remove liked card" : "Remove recommendation"}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 hover:cursor-pointer"
+            title="Remove this card"
           >
             ❌
           </button>
