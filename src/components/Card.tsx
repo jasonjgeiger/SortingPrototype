@@ -32,7 +32,7 @@ export const Card = ({
       id={card.id}
       dragListener={false}
       dragControls={dragControls}
-      className="py-4 w-full flex justify-center"
+      className="py-2 w-full flex justify-center"
       style={{ position: 'relative' }}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
@@ -42,7 +42,7 @@ export const Card = ({
         className="w-full max-w-4xl rounded-lg shadow-lg flex items-center select-none px-4"
         style={{ 
           backgroundColor: card.color,
-          height: '6rem',
+          height: '4.5rem',
           touchAction: 'none'
         }}
         initial={false}
@@ -62,7 +62,7 @@ export const Card = ({
               e.stopPropagation();
               onMove(index, index - 1);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30 hover:cursor-pointer disabled:cursor-not-allowed"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-gray-800/50 bg-white/50 hover:bg-white/80 disabled:opacity-20 hover:cursor-pointer disabled:cursor-not-allowed"
             title="Move card up"
             disabled={index === 0}
           >
@@ -73,7 +73,7 @@ export const Card = ({
               e.stopPropagation();
               onMove(index, index + 1);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 disabled:opacity-30 hover:cursor-pointer disabled:cursor-not-allowed"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-gray-800/50 bg-white/50 hover:bg-white/80 disabled:opacity-20 hover:cursor-pointer disabled:cursor-not-allowed"
             title="Move card down"
             disabled={index === totalCards - 1}
           >
@@ -83,11 +83,11 @@ export const Card = ({
 
         {/* Card Content */}
         <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <span className="text-white text-2xl font-bold select-none">{card.value}</span>
             {showDragHandle && (
               <div 
-                className="w-10 h-10 flex items-center justify-center cursor-grab active:cursor-grabbing bg-white/10 rounded-lg hover:bg-white/20"
+                className="w-10 h-8 flex items-center justify-center cursor-grab active:cursor-grabbing bg-white/10 rounded-lg hover:bg-white/20"
                 onPointerDown={(e) => {
                   e.stopPropagation();
                   dragControls.start(e);
@@ -106,7 +106,7 @@ export const Card = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute top-[5px] left-0 w-full flex justify-center pointer-events-none"
+            className="absolute top-[-5px] left-0 w-full flex justify-center pointer-events-none"
           >
             <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               Liked
@@ -140,7 +140,7 @@ export const Card = ({
               e.stopPropagation();
               onRemoveCard(index);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 hover:cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-gray-80 bg-white/50 hover:bg-white/80 hover:cursor-pointer"
             title="Remove this card"
           >
             ❌
